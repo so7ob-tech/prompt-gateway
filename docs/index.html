@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prompt Gateway — a local-first Chrome side panel for prompts, chats, workspaces, and AI workflows.">
+  <title>Prompt Gateway — Your prompts. Your projects. Your workflow.</title>
+  <link rel="icon" href="assets/prompt-gateway-icon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Prompt Gateway home">
+      <img src="assets/prompt-gateway-icon.png" alt="Prompt Gateway logo">
+      <span>Prompt Gateway</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="https://github.com/so7ob-tech/prompt-gateway/wiki">Documentation</a>
+      <a class="nav-button" href="https://github.com/so7ob-tech/prompt-gateway/releases">Releases</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> Local-first Chrome extension</p>
+        <h1>Your prompts.<br><em>Your projects.</em><br>Your workflow.</h1>
+        <p class="hero-text">Prompt Gateway brings your prompt library, chats, workspaces, and usage history into one focused Chrome side panel.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/so7ob-tech/prompt-gateway/releases">Get the latest release <span>↗</span></a>
+          <a class="button button-ghost" href="https://github.com/so7ob-tech/prompt-gateway/wiki">Read the documentation</a>
+        </div>
+        <div class="trust-row"><span>Manifest V3</span><span>IndexedDB</span><span>Optional Drive sync</span></div>
+      </div>
+      <div class="hero-panel" aria-label="Product preview">
+        <div class="glow"></div>
+        <div class="mock-window">
+          <div class="mock-top"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span><span class="mock-title">Prompt Gateway</span></div>
+          <div class="mock-body">
+            <div class="mock-sidebar"><div class="mock-logo">P</div><span class="mock-line active"></span><span class="mock-line"></span><span class="mock-line"></span><span class="mock-line short"></span></div>
+            <div class="mock-content"><div class="mock-heading"><span>Workspace</span><b>Client projects</b></div><div class="mock-search">⌕&nbsp; Search prompts...</div><div class="prompt-card"><span class="card-icon purple">✦</span><div><b>Strategic brief</b><small>Planning · Favorite</small></div><span class="card-arrow">↗</span></div><div class="prompt-card"><span class="card-icon blue">◆</span><div><b>Research synthesis</b><small>Research · Updated today</small></div><span class="card-arrow">↗</span></div><div class="prompt-card"><span class="card-icon mint">●</span><div><b>Meeting summary</b><small>Operations · 12 uses</small></div><span class="card-arrow">↗</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics shell" aria-label="Project highlights"><div><strong>01</strong><span>Prompt library</span></div><div><strong>02</strong><span>Project workspaces</span></div><div><strong>03</strong><span>Local-first privacy</span></div><div><strong>04</strong><span>One focused panel</span></div></section>
+
+    <section id="features" class="section shell">
+      <div class="section-intro"><p class="eyebrow">Everything in context</p><h2>A calmer way to work with AI.</h2><p>Stop searching through scattered notes and repeating the same instructions. Prompt Gateway turns your reusable knowledge into a practical workflow.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card featured"><div class="feature-number">01</div><h3>Build your prompt library</h3><p>Create, edit, search, tag, favorite, and version prompts so the best instructions are always ready when you need them.</p><a href="https://github.com/so7ob-tech/prompt-gateway/wiki/Prompt-Gateway">Explore the library →</a></article>
+        <article class="feature-card"><div class="feature-number">02</div><h3>Organize by workspace</h3><p>Group prompts and chats by client, project, or workflow without duplicating the underlying data.</p><a href="https://github.com/so7ob-tech/prompt-gateway/wiki/Prompt-Gateway">See workspaces →</a></article>
+        <article class="feature-card"><div class="feature-number">03</div><h3>Stay close to the composer</h3><p>Insert a selected prompt into supported ChatGPT, Claude, and generic web composers from the side panel.</p><a href="https://github.com/so7ob-tech/prompt-gateway/wiki/Development">View development guide →</a></article>
+        <article class="feature-card"><div class="feature-number">04</div><h3>Learn from your activity</h3><p>Review usage and interaction history in the current workspace to understand what is working.</p><a href="https://github.com/so7ob-tech/prompt-gateway/wiki/Privacy-and-permissions">How data is handled →</a></article>
+      </div>
+    </section>
+
+    <section id="privacy" class="privacy-section"><div class="shell privacy-grid"><div><p class="eyebrow">Privacy by design</p><h2>Your data stays yours.</h2></div><div><p>Prompt Gateway stores prompts, chats, workspaces, settings, and history locally in your browser by default. There is no advertising layer, analytics, or application backend.</p><p>Google Drive synchronization is optional. When enabled, it uses a private application-data folder and does not access ordinary Drive files or folders.</p><a class="text-link" href="https://github.com/so7ob-tech/prompt-gateway/wiki/Privacy-and-permissions">Read the privacy guide →</a></div></div></section>
+
+    <section class="cta shell"><div><p class="eyebrow">Ready when you are</p><h2>Make your best prompts reusable.</h2></div><a class="button button-primary" href="https://github.com/so7ob-tech/prompt-gateway/releases">Download Prompt Gateway <span>↗</span></a></section>
+  </main>
+
+  <footer class="site-footer shell"><div class="brand"><img src="assets/prompt-gateway-icon.png" alt=""><span>Prompt Gateway</span></div><p>Independent productivity tooling for focused AI workflows.</p><div class="footer-links"><a href="https://github.com/so7ob-tech/prompt-gateway">GitHub</a><a href="https://github.com/so7ob-tech/prompt-gateway/issues">Issues</a><a href="https://github.com/so7ob-tech/prompt-gateway/wiki">Wiki</a></div></footer>
+</body>
+</html>
