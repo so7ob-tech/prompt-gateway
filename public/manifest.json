@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Gateway",
+  "version": "0.2.0",
+  "description": "Local-first prompt repository, chat registry, composer, and usage ledger.",
+  "minimum_chrome_version": "114",
+  "permissions": ["sidePanel", "storage", "activeTab", "scripting", "contextMenus", "tabs", "identity"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "Open Prompt Gateway" },
+  "side_panel": { "default_path": "index.html" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "open-side-panel": { "suggested_key": { "default": "Ctrl+Shift+P" }, "description": "Open Prompt Gateway" }
+  }
+}

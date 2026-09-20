@@ -1,0 +1,42 @@
+# Prompt Gateway
+
+Prompt Gateway is a Manifest V3 Chrome Extension MVP for a local-first prompt repository, chat registry, unified composer, and usage ledger. It keeps application data in IndexedDB and uses Chrome APIs only to communicate with the current tab.
+
+## Implemented in this MVP
+
+The extension includes a React + TypeScript Side Panel, prompt CRUD with categories and tags, favorites, search, prompt version records, current-chat detection, local chat names, Composer actions for Insert and Insert & Send, ad-hoc interaction logging, usage and interaction history, context-menu hooks, JSON backup and merge import, RTL Arabic UI, dark/light themes, and a provider adapter boundary for ChatGPT and Claude.
+
+The adapter selectors are deliberately isolated in `src/providers/adapters.ts`. Provider DOM layouts change frequently, so the extension fails safely when it cannot find an input instead of modifying arbitrary page content.
+
+## Development
+
+```bash
+npm install
+npm run build
+```
+
+The production artifact is written to `dist/`.
+
+## Load Unpacked
+
+1. Open `chrome://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the project `dist/` directory.
+5. Open `https://chatgpt.com/` or `https://claude.ai/` and open the extension Side Panel.
+
+After source changes, run `npm run build`, then press **Reload** for the extension on the extensions page.
+
+## Data and privacy
+
+Prompts, chats, usage records, interaction snapshots, settings, and prompt versions are stored locally in IndexedDB. No backend, analytics, remote code, or external synchronization is included. The backup format is versioned with `schemaVersion: 1` and import merges by record ID without deleting existing data.
+
+Permissions are limited to `sidePanel`, `storage`, `activeTab`, `scripting`, `contextMenus`, and `tabs`. Host access uses `<all_urls>` because the extension now supports registering and inserting into arbitrary websites through Generic Mode. This is broader than provider-specific access, but is required for the requested all-sites workflow. The `tabs` permission supports opening registry URLs and active-tab context; content interaction is performed through the declared supported hosts.
+
+## Known limitations
+
+Provider selectors are best-effort and may need maintenance when a provider changes its UI. Model extraction, chat-title extraction beyond the document title, persistent URL identity resolution across provider redirects, and automatic provider adapters for Gemini, Copilot, Grok, Perplexity, and Kimi are planned for the next release. The current implementation records prompt usage and interaction snapshots but does not capture provider responses.
+
+## Google Drive synchronization
+
+The extension now includes an optional Google Drive App Data synchronization service. It uses the narrow `drive.appdata` scope, stores one versioned JSON file in the application data area, merges records by ID, and chooses the newest record for prompts, chats, usage records, and interactions. Add a Google OAuth Client ID in Settings, then press **Sync Now**. Google OAuth client registration is provider-specific; the extension does not contain a shared client secret.
