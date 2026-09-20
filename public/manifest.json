@@ -45,5 +45,11 @@
       "description": "Open Prompt Gateway"
     }
   },
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzuJH3u1BuQWxuQkpc9MXtn9K+/OVQI0d9xEXT4gL8cnf752ie8qd8/ld4TUY3Z6jqWS90RPfkd/XnSpwh+wgQLB1DfYEQyJ0zj3jHK3UREoQVu4tQfjrGnEBLQweG23tJ8RsWaIXiF8sBpAXICI+L4DAQXePSeIdBSRfNX6jhbp6nFcMMkxx1rVeR9VIV1TY1++811r1PegcSQbjG/pVK2vfofyU7mhvpGwDf7hYqyfyaO1Vmp8Ebb0rGgoQFXvrNEU1l1tQiqSsBLi91bf3tirA04KY4d3WRs5Bw6yhjYvvTRKgARawuYga5moK8lxF+zkv+szeig0K/pJaBVI7wwIDAQAB"
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzuJH3u1BuQWxuQkpc9MXtn9K+/OVQI0d9xEXT4gL8cnf752ie8qd8/ld4TUY3Z6jqWS90RPfkd/XnSpwh+wgQLB1DfYEQyJ0zj3jHK3UREoQVu4tQfjrGnEBLQweG23tJ8RsWaIXiF8sBpAXICI+L4DAQXePSeIdBSRfNX6jhbp6nFcMMkxx1rVeR9VIV1TY1++811r1PegcSQbjG/pVK2vfofyU7mhvpGwDf7hYqyfyaO1Vmp8Ebb0rGgoQFXvrNEU1l1tQiqSsBLi91bf3tirA04KY4d3WRs5Bw6yhjYvvTRKgARawuYga5moK8lxF+zkv+szeig0K/pJaBVI7wwIDAQAB",
+  "oauth2": {
+    "client_id": "892946661643-gb5uvm4rm3d0neun1g15dmbaal13rk1c.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.appdata"
+    ]
+  }
 }
