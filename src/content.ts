@@ -8,4 +8,4 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   return false;
 });
 let lastUrl = location.href;
-new MutationObserver(() => { if (lastUrl !== location.href) { lastUrl = location.href; chrome.runtime.sendMessage({ type: 'CHAT_CONTEXT_CHANGED', chat: adapter.getCurrentChat() }); } }).observe(document, { subtree: true, childList: true });
+new MutationObserver(() => { if (lastUrl !== location.href) { lastUrl = location.href; chrome.runtime.sendMessage({ type: 'CHAT_CONTEXT_CHANGED', chat: adapter.getCurrentChat() }).catch(() => undefined); } }).observe(document, { subtree: true, childList: true });

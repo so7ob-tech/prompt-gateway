@@ -2,6 +2,12 @@ export type Provider = 'chatgpt' | 'claude' | 'generic' | 'unknown';
 export type UsageType = 'COPY' | 'INSERT' | 'INSERT_AND_SEND' | 'COMPOSER' | 'OTHER';
 export type InputType = 'STORED_PROMPT' | 'MODIFIED_PROMPT' | 'AD_HOC';
 
+export interface Workspace {
+  id: string; name: string; description: string; icon?: string; color?: string; tags: string[];
+  favorite: boolean; archived: boolean; notes: string; createdAt: number; updatedAt: number; lastActivityAt?: number;
+}
+export interface WorkspacePrompt { id: string; workspaceId: string; promptId: string; createdAt: number; }
+export interface WorkspaceChat { id: string; workspaceId: string; chatId: string; createdAt: number; }
 export interface Prompt {
   id: string; title: string; description: string; content: string; category: string; tags: string[];
   favorite: boolean; archived: boolean; notes: string; createdAt: number; updatedAt: number;
@@ -16,18 +22,29 @@ export interface Chat {
 }
 export interface Usage {
   id: string; promptId?: string; promptVersion?: number; promptTitleSnapshot?: string; promptSnapshotHash: string;
-  chatId?: string; chatName?: string; chatUrl?: string; provider?: Provider; model?: string; timestamp: number;
-  usageType: UsageType; inputType: InputType; variables: Record<string, string>; wasModifiedBeforeUse: boolean;
-  inserted: boolean; sent: boolean; resultStatus: 'SUCCESS' | 'FAILED' | 'CANCELLED';
+  chatId?: string; chatName?: string; chatUrl?: string; provider?: Provider; model?: string; workspaceId?: string;
+  timestamp: number; usageType: UsageType; inputType: InputType; variables: Record<string, string>;
+  wasModifiedBeforeUse: boolean; inserted: boolean; sent: boolean; resultStatus: 'SUCCESS' | 'FAILED' | 'CANCELLED';
 }
 export interface Interaction {
   id: string; timestamp: number; chatId?: string; provider?: Provider; url?: string; promptId?: string;
-  inputType: InputType; inputSnapshot: string; variables: Record<string, string>; action: UsageType;
+  workspaceId?: string; inputType: InputType; inputSnapshot: string; variables: Record<string, string>; action: UsageType;
   status: 'SUCCESS' | 'FAILED' | 'CANCELLED';
 }
-export interface Settings { id: 'settings'; autoRegisterChats: boolean; confirmBeforeSend: boolean; theme: 'system' | 'light' | 'dark'; locale: 'ar' | 'en'; syncEnabled?: boolean; googleClientId?: string; lastSyncAt?: number; }
+export interface Settings {
+  id: 'settings'; autoRegisterChats: boolean; confirmBeforeSend: boolean; theme: 'system' | 'light' | 'dark';
+  locale: 'ar' | 'en'; currentWorkspaceId?: string; syncEnabled?: boolean; googleClientId?: string; lastSyncAt?: number;
+}
 export interface CurrentChat { provider: Provider; url: string; title: string; identityKey: string; model?: string; chatId?: string; }
-export interface Backup { schemaVersion: 1; exportedAt: number; prompts: Prompt[]; promptVersions: PromptVersion[]; chats: Chat[]; usages: Usage[]; interactions: Interaction[]; settings: Settings; }
+export interface Backup {
+  schemaVersion: 2; exportedAt: number; prompts: Prompt[]; promptVersions: PromptVersion[]; chats: Chat[];
+  usages: Usage[]; interactions: Interaction[]; workspaces: Workspace[]; workspacePrompts: WorkspacePrompt[];
+  workspaceChats: WorkspaceChat[]; settings: Settings;
+}
+export interface LegacyBackup {
+  schemaVersion: 1; exportedAt?: number; prompts: Prompt[]; promptVersions?: PromptVersion[]; chats: Chat[];
+  usages?: Usage[]; interactions?: Interaction[]; settings?: Settings;
+}
 export const now = () => Date.now();
 export const makeId = (prefix: string) => `${prefix}-${crypto.randomUUID()}`;
 export const hashText = async (text: string) => {

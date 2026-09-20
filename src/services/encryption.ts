@@ -37,7 +37,7 @@ export async function decryptBackup(envelope: EncryptedBackup, passphrase: strin
     const key = await deriveKey(passphrase, fromBase64(envelope.salt), envelope.iterations);
     const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromBase64(envelope.iv) }, key, fromBase64(envelope.ciphertext));
     const backup = JSON.parse(decoder.decode(plaintext)) as Backup;
-    if (backup.schemaVersion !== 1) throw new Error('إصدار النسخة غير مدعوم');
+    if (![1, 2].includes(backup.schemaVersion)) throw new Error('إصدار النسخة غير مدعوم');
     return backup;
   } catch { throw new Error('عبارة المرور غير صحيحة أو النسخة السحابية تالفة'); }
 }
