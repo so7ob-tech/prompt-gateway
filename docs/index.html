@@ -16,9 +16,11 @@
     </a>
     <nav aria-label="Primary navigation">
       <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
       <a href="#privacy">Privacy</a>
       <a href="https://github.com/so7ob-tech/prompt-gateway/wiki">Documentation</a>
       <a class="nav-button" href="https://github.com/so7ob-tech/prompt-gateway/releases">Releases</a>
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language">العربية</button>
     </nav>
   </header>
 
@@ -58,11 +60,85 @@
       </div>
     </section>
 
+    <section id="screenshots" class="screenshots-section section shell">
+      <div class="section-intro"><p class="eyebrow">See it in action</p><h2>The real extension, in context.</h2><p>These are real Prompt Gateway screens from the current product build. Explore the workspace, prompt library, chat registry, and settings views.</p></div>
+      <div class="screenshot-grid">
+        <figure class="screenshot-card screenshot-featured"><a href="assets/screenshots/home.png" target="_blank" rel="noreferrer"><img src="assets/screenshots/home.png" alt="Prompt Gateway home and composer view" loading="lazy"></a><figcaption><strong>Home and composer</strong><span>Insert a prompt directly into the current workflow.</span></figcaption></figure>
+        <figure class="screenshot-card"><a href="assets/screenshots/workspaces.png" target="_blank" rel="noreferrer"><img src="assets/screenshots/workspaces.png" alt="Prompt Gateway workspaces view" loading="lazy"></a><figcaption><strong>Workspaces</strong><span>Organize work by project, client, or workflow.</span></figcaption></figure>
+        <figure class="screenshot-card"><a href="assets/screenshots/prompts.png" target="_blank" rel="noreferrer"><img src="assets/screenshots/prompts.png" alt="Prompt Gateway prompt library view" loading="lazy"></a><figcaption><strong>Prompt library</strong><span>Search, version, favorite, and reuse your prompts.</span></figcaption></figure>
+        <figure class="screenshot-card"><a href="assets/screenshots/chats.png" target="_blank" rel="noreferrer"><img src="assets/screenshots/chats.png" alt="Prompt Gateway chat registry view" loading="lazy"></a><figcaption><strong>Chat registry</strong><span>Keep conversation context close to your projects.</span></figcaption></figure>
+        <figure class="screenshot-card"><a href="assets/screenshots/settings.png" target="_blank" rel="noreferrer"><img src="assets/screenshots/settings.png" alt="Prompt Gateway settings and backup view" loading="lazy"></a><figcaption><strong>Settings and backup</strong><span>Control synchronization, themes, and local backups.</span></figcaption></figure>
+      </div>
+    </section>
+
     <section id="privacy" class="privacy-section"><div class="shell privacy-grid"><div><p class="eyebrow">Privacy by design</p><h2>Your data stays yours.</h2></div><div><p>Prompt Gateway stores prompts, chats, workspaces, settings, and history locally in your browser by default. There is no advertising layer, analytics, or application backend.</p><p>Google Drive synchronization is optional. When enabled, it uses a private application-data folder and does not access ordinary Drive files or folders.</p><a class="text-link" href="https://github.com/so7ob-tech/prompt-gateway/wiki/Privacy-and-permissions">Read the privacy guide →</a></div></div></section>
 
     <section class="cta shell"><div><p class="eyebrow">Ready when you are</p><h2>Make your best prompts reusable.</h2></div><a class="button button-primary" href="https://github.com/so7ob-tech/prompt-gateway/releases">Download Prompt Gateway <span>↗</span></a></section>
   </main>
 
   <footer class="site-footer shell"><div class="brand"><img src="assets/prompt-gateway-icon.png" alt=""><span>Prompt Gateway</span></div><p>Independent productivity tooling for focused AI workflows.</p><div class="footer-links"><a href="https://github.com/so7ob-tech/prompt-gateway">GitHub</a><a href="https://github.com/so7ob-tech/prompt-gateway/issues">Issues</a><a href="https://github.com/so7ob-tech/prompt-gateway/wiki">Wiki</a></div></footer>
+  <script>
+    (() => {
+      const english = {
+        nav: ['Features', 'Screenshots', 'Privacy', 'Documentation', 'Releases'],
+        eyebrow: 'Local-first Chrome extension',
+        heroTitle: 'Your prompts.<br><em>Your projects.</em><br>Your workflow.',
+        heroText: 'Prompt Gateway brings your prompt library, chats, workspaces, and usage history into one focused Chrome side panel.',
+        getRelease: 'Get the latest release <span>↗</span>', docs: 'Read the documentation',
+        trust: ['Manifest V3', 'IndexedDB', 'Optional Drive sync'],
+        mockHeading: ['Workspace', 'Client projects'], mockSearch: '⌕&nbsp; Search prompts...',
+        mockCards: [['Strategic brief', 'Planning · Favorite'], ['Research synthesis', 'Research · Updated today'], ['Meeting summary', 'Operations · 12 uses']],
+        metrics: ['Prompt library', 'Project workspaces', 'Local-first privacy', 'One focused panel'],
+        featuresIntro: ['Everything in context', 'A calmer way to work with AI.', 'Stop searching through scattered notes and repeating the same instructions. Prompt Gateway turns your reusable knowledge into a practical workflow.'],
+        features: [['Build your prompt library', 'Create, edit, search, tag, favorite, and version prompts so the best instructions are always ready when you need them.', 'Explore the library →'], ['Organize by workspace', 'Group prompts and chats by client, project, or workflow without duplicating the underlying data.', 'See workspaces →'], ['Stay close to the composer', 'Insert a selected prompt into supported ChatGPT, Claude, and generic web composers from the side panel.', 'View development guide →'], ['Learn from your activity', 'Review usage and interaction history in the current workspace to understand what is working.', 'How data is handled →']],
+        screenshotsIntro: ['See it in action', 'The real extension, in context.', 'These are real Prompt Gateway screens from the current product build. Explore the workspace, prompt library, chat registry, and settings views.'],
+        screenshots: [['Home and composer', 'Insert a prompt directly into the current workflow.'], ['Workspaces', 'Organize work by project, client, or workflow.'], ['Prompt library', 'Search, version, favorite, and reuse your prompts.'], ['Chat registry', 'Keep conversation context close to your projects.'], ['Settings and backup', 'Control synchronization, themes, and local backups.']],
+        privacy: ['Privacy by design', 'Your data stays yours.', 'Prompt Gateway stores prompts, chats, workspaces, settings, and history locally in your browser by default. There is no advertising layer, analytics, or application backend.', 'Google Drive synchronization is optional. When enabled, it uses a private application-data folder and does not access ordinary Drive files or folders.', 'Read the privacy guide →'],
+        cta: ['Ready when you are', 'Make your best prompts reusable.', 'Download Prompt Gateway <span>↗</span>'],
+        footer: 'Independent productivity tooling for focused AI workflows.', toggle: 'العربية'
+      };
+      const arabic = {
+        nav: ['المميزات', 'لقطات الشاشة', 'الخصوصية', 'التوثيق', 'الإصدارات'],
+        eyebrow: 'إضافة Chrome محلية أولًا',
+        heroTitle: 'Prompts الخاصة بك.<br><em>مشاريعك.</em><br>سير عملك.',
+        heroText: 'يجمع Prompt Gateway مكتبة Prompts والمحادثات ومساحات العمل وسجل الاستخدام داخل لوحة جانبية مركزة في Chrome.',
+        getRelease: 'تحميل أحدث إصدار <span>↗</span>', docs: 'قراءة التوثيق',
+        trust: ['Manifest V3', 'IndexedDB', 'مزامنة Drive اختيارية'],
+        mockHeading: ['مساحة العمل', 'مشاريع العملاء'], mockSearch: '⌕&nbsp; البحث في Prompts...',
+        mockCards: [['ملخص استراتيجي', 'التخطيط · مفضل'], ['تلخيص البحث', 'البحث · حُدّث اليوم'], ['ملخص الاجتماع', 'العمليات · 12 استخدامًا']],
+        metrics: ['مكتبة Prompts', 'مساحات عمل للمشاريع', 'خصوصية محلية أولًا', 'لوحة واحدة مركزة'],
+        featuresIntro: ['كل شيء في سياقه', 'طريقة أكثر هدوءًا للعمل مع الذكاء الاصطناعي.', 'توقف عن البحث في الملاحظات المتفرقة وإعادة كتابة التعليمات نفسها. يحول Prompt Gateway معرفتك القابلة لإعادة الاستخدام إلى سير عمل عملي.'],
+        features: [['أنشئ مكتبة Prompts', 'أنشئ Prompts وعدّلها وابحث فيها وأضف الوسوم والمفضلة والإصدارات، لتبقى أفضل تعليماتك جاهزة دائمًا.', 'استكشف المكتبة ←'], ['نظّم العمل داخل مساحات', 'اجمع Prompts والمحادثات حسب العميل أو المشروع أو سير العمل دون تكرار البيانات.', 'استكشف مساحات العمل ←'], ['ابقَ قريبًا من مربع الكتابة', 'أدرج Prompt مختارًا في مربعات الكتابة المدعومة داخل ChatGPT وClaude والمواقع العامة من اللوحة الجانبية.', 'دليل التطوير ←'], ['تعلّم من نشاطك', 'راجع سجل الاستخدام والتفاعلات داخل مساحة العمل الحالية لمعرفة ما يحقق أفضل نتيجة.', 'كيف تتم معالجة البيانات ←']],
+        screenshotsIntro: ['شاهد الإضافة أثناء العمل', 'الواجهة الحقيقية في سياقها.', 'هذه لقطات حقيقية من إصدار Prompt Gateway الحالي. استكشف مساحات العمل ومكتبة Prompts وسجل المحادثات والإعدادات.'],
+        screenshots: [['الرئيسية ومربع الكتابة', 'أدرج Prompt مباشرة في سير العمل الحالي.'], ['مساحات العمل', 'نظّم العمل حسب المشروع أو العميل أو سير العمل.'], ['مكتبة Prompts', 'ابحث عن Prompts وأدر إصداراتها ومفضلاتك وأعد استخدامها.'], ['سجل المحادثات', 'احتفظ بسياق المحادثات قريبًا من مشاريعك.'], ['الإعدادات والنسخ الاحتياطي', 'تحكم في المزامنة والمظهر والنسخ الاحتياطية المحلية.']],
+        privacy: ['الخصوصية أولًا', 'بياناتك ملكك.', 'يخزن Prompt Gateway الـPrompts والمحادثات ومساحات العمل والإعدادات والسجل محليًا في المتصفح افتراضيًا. لا توجد إعلانات أو تحليلات أو خادم خلفي للتطبيق.', 'مزامنة Google Drive اختيارية. عند تفعيلها تستخدم مجلد بيانات التطبيق الخاص، ولا تصل إلى ملفات Drive العادية أو مجلداته.', 'قراءة دليل الخصوصية ←'],
+        cta: ['جاهز عندما تكون مستعدًا', 'اجعل أفضل Prompts لديك قابلة لإعادة الاستخدام.', 'تحميل Prompt Gateway <span>↗</span>'],
+        footer: 'أداة إنتاجية مستقلة لسير عمل مركز مع الذكاء الاصطناعي.', toggle: 'English'
+      };
+      const setText = (selector, value, html = false) => { const element = document.querySelector(selector); if (element) element[html ? 'innerHTML' : 'textContent'] = value; };
+      const setLanguage = (language) => {
+        const t = language === 'ar' ? arabic : english;
+        document.documentElement.lang = language; document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+        document.title = language === 'ar' ? 'Prompt Gateway — Prompts ومشاريعك وسير عملك' : 'Prompt Gateway — Your prompts. Your projects. Your workflow.';
+        document.querySelectorAll('nav a').forEach((link, index) => { link.textContent = t.nav[index]; });
+        setText('.language-toggle', t.toggle); document.querySelector('.language-toggle')?.setAttribute('aria-label', language === 'ar' ? 'تبديل اللغة' : 'Switch language');
+        setText('.hero-copy .eyebrow', t.eyebrow); setText('h1', t.heroTitle, true); setText('.hero-text', t.heroText); setText('.hero-actions .button-primary', t.getRelease, true); setText('.hero-actions .button-ghost', t.docs);
+        document.querySelectorAll('.trust-row span').forEach((el, i) => { el.textContent = t.trust[i]; });
+        document.querySelector('.mock-heading span').textContent = t.mockHeading[0]; document.querySelector('.mock-heading b').textContent = t.mockHeading[1]; document.querySelector('.mock-search').innerHTML = t.mockSearch;
+        document.querySelectorAll('.prompt-card').forEach((card, i) => { card.querySelector('b').textContent = t.mockCards[i][0]; card.querySelector('small').textContent = t.mockCards[i][1]; });
+        document.querySelectorAll('.metrics span').forEach((el, i) => { el.textContent = t.metrics[i]; });
+        const intro = document.querySelector('#features .section-intro'); intro.querySelector('.eyebrow').textContent = t.featuresIntro[0]; intro.querySelector('h2').textContent = t.featuresIntro[1]; intro.querySelector('p:last-child').textContent = t.featuresIntro[2];
+        document.querySelectorAll('.feature-card').forEach((card, i) => { card.querySelector('h3').textContent = t.features[i][0]; card.querySelector('p').textContent = t.features[i][1]; card.querySelector('a').textContent = t.features[i][2]; });
+        const shotIntro = document.querySelector('#screenshots .section-intro'); shotIntro.querySelector('.eyebrow').textContent = t.screenshotsIntro[0]; shotIntro.querySelector('h2').textContent = t.screenshotsIntro[1]; shotIntro.querySelector('p:last-child').textContent = t.screenshotsIntro[2];
+        document.querySelectorAll('.screenshot-card').forEach((card, i) => { card.querySelector('strong').textContent = t.screenshots[i][0]; card.querySelector('span').textContent = t.screenshots[i][1]; });
+        const privacy = document.querySelector('.privacy-section'); privacy.querySelector('.eyebrow').textContent = t.privacy[0]; privacy.querySelector('h2').textContent = t.privacy[1]; privacy.querySelectorAll('div > p:not(.eyebrow)')[0].textContent = t.privacy[2]; privacy.querySelectorAll('div > p:not(.eyebrow)')[1].textContent = t.privacy[3]; privacy.querySelector('.text-link').textContent = t.privacy[4];
+        setText('.cta .eyebrow', t.cta[0]); setText('.cta h2', t.cta[1]); setText('.cta .button-primary', t.cta[2], true); setText('.site-footer p', t.footer);
+        localStorage.setItem('prompt-gateway-language', language);
+      };
+      const saved = localStorage.getItem('prompt-gateway-language'); const initial = saved || ((navigator.language || '').toLowerCase().startsWith('ar') ? 'ar' : 'en');
+      document.getElementById('language-toggle')?.addEventListener('click', () => setLanguage(document.documentElement.lang === 'ar' ? 'en' : 'ar'));
+      setLanguage(initial);
+    })();
+  </script>
 </body>
 </html>
