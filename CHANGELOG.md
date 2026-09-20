@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.3] - 2026-09-20
+
+The Google account connection now uses a fixed OAuth client in the Manifest. Users connect through a button and no longer enter a Client ID manually. Settings also provides Sync Now and Disconnect controls.
+
 ## [0.2.0] - 2026-09-20
 
 ### Added

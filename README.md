@@ -39,4 +39,4 @@ Provider selectors are best-effort and may need maintenance when a provider chan
 
 ## Google Drive synchronization
 
-The extension now includes an optional Google Drive App Data synchronization service. It uses the narrow `drive.appdata` scope, stores one versioned JSON file in the application data area, merges records by ID, and chooses the newest record for prompts, chats, usage records, and interactions. Add a Google OAuth Client ID in Settings, then press **Sync Now**. Google OAuth client registration is provider-specific; the extension does not contain a shared client secret.
+The extension now includes an optional Google Drive App Data synchronization service. It uses the narrow `drive.appdata` scope, stores one versioned JSON file in the application data area, merges records by ID, and chooses the newest record for prompts, chats, usage records, and interactions. Users press **ربط حساب Google** and complete the Google authentication page without entering a Client ID. Settings provides **Sync Now** and **فصل الحساب** controls.
