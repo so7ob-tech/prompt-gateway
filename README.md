@@ -31,11 +31,11 @@ After source changes, run `npm run build`, then press **Reload** for the extensi
 
 Prompts, chats, usage records, interaction snapshots, settings, and prompt versions are stored locally in IndexedDB. No backend, analytics, remote code, or external synchronization is included. The backup format is versioned with `schemaVersion: 1` and import merges by record ID without deleting existing data.
 
-Permissions are limited to `sidePanel`, `storage`, `activeTab`, `scripting`, `contextMenus`, and `tabs`. Host access uses `<all_urls>` because the extension now supports registering and inserting into arbitrary websites through Generic Mode. This is broader than provider-specific access, but is required for the requested all-sites workflow. The `tabs` permission supports opening registry URLs and active-tab context; content interaction is performed through the declared supported hosts.
+Permissions are limited to `sidePanel`, `storage`, `activeTab`, `scripting`, `contextMenus`, `tabs`, and optional Google identity access. Host access is restricted to an explicit list of supported AI websites, including ChatGPT, Claude, Gemini, Copilot, Perplexity, Manus, Mistral, DeepSeek, Qwen, Kimi, Meta AI, Grok, Poe, Hugging Face, OpenRouter, NotebookLM, and other declared AI services. The extension no longer requests `<all_urls>`. The generic composer adapter is used on these declared hosts, while content interaction remains limited to the current supported page.
 
 ## Known limitations
 
-Provider selectors are best-effort and may need maintenance when a provider changes its UI. Model extraction, chat-title extraction beyond the document title, persistent URL identity resolution across provider redirects, and automatic provider adapters for Gemini, Copilot, Grok, Perplexity, and Kimi are planned for the next release. The current implementation records prompt usage and interaction snapshots but does not capture provider responses.
+Provider selectors are best-effort and may need maintenance when a provider changes its UI. Model extraction, chat-title extraction beyond the document title, and persistent URL identity resolution across provider redirects are planned for future releases. The current implementation records prompt usage and interaction snapshots but does not capture provider responses.
 
 ## Google Drive synchronization
 
