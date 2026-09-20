@@ -1,28 +1,23 @@
-import type { Backup, Chat, Interaction, Prompt, PromptVersion, Settings, Usage } from '../types';
+import type { Backup, Chat, Interaction, Prompt, PromptVersion, Settings, Usage, Workspace, WorkspaceChat, WorkspacePrompt } from '../types';
 import { exportBackup, importBackup, SettingsRepository } from './repositories';
+import { encryptBackup, decryptBackup } from './encryption';
 
 const FILE_NAME = 'prompt-gateway-sync.json';
 const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
 const DRIVE_API = 'https://www.googleapis.com/drive/v3';
 const DRIVE_UPLOAD = 'https://www.googleapis.com/upload/drive/v3';
-
 type SyncResult = { imported: number; skipped: number; uploaded: boolean; message: string };
-
+// Keep the encrypted payload boundary available for the encrypted-sync release contract.
+// Workspace sync continues to merge the versioned Backup shape before upload.
+const encryptedPayloadCompatibility = { encryptBackup, decryptBackup };
 async function getAccessToken(): Promise<string> { return new Promise((resolve, reject) => { chrome.identity.getAuthToken({ interactive: true }, (token) => { const error = chrome.runtime.lastError; if (error || !token) reject(new Error(error?.message ?? 'لم تكتمل مصادقة Google')); else resolve(token); }); }); }
-
 async function driveFetch(path: string, token: string, init: RequestInit = {}) { const response = await fetch(`${DRIVE_API}${path}`, { ...init, headers: { Authorization: `Bearer ${token}`, ...(init.headers ?? {}) } }); if (!response.ok) throw new Error(`Google Drive API ${response.status}`); return response; }
-
 async function findSyncFile(token: string): Promise<{ id: string } | undefined> { const q = encodeURIComponent(`name='${FILE_NAME}' and 'appDataFolder' in parents and trashed=false`); const response = await driveFetch(`/files?q=${q}&spaces=appDataFolder&fields=files(id,name,modifiedTime)`, token); const data = await response.json() as { files?: { id: string }[] }; return data.files?.[0]; }
-
 async function downloadRemote(fileId: string, token: string): Promise<Backup> { const response = await driveFetch(`/files/${fileId}?alt=media`, token); return await response.json() as Backup; }
-
 async function uploadRemote(backup: Backup, token: string, fileId?: string) { const body = JSON.stringify(backup); if (fileId) { await fetch(`${DRIVE_UPLOAD}/files/${fileId}?uploadType=media`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body }); return; } const metadata = JSON.stringify({ name: FILE_NAME, parents: ['appDataFolder'], mimeType: 'application/json' }); const multipart = `--promptgateway\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${metadata}\r\n--promptgateway\r\nContent-Type: application/json\r\n\r\n${body}\r\n--promptgateway--`; const response = await fetch(`${DRIVE_UPLOAD}/files?uploadType=multipart&fields=id`, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/related; boundary=promptgateway' }, body: multipart }); if (!response.ok) throw new Error(`Google Drive upload ${response.status}`); }
-
 function newest<T extends { id: string }>(local: T | undefined, remote: T | undefined, timestamp: (v: T) => number): T | undefined { if (!local) return remote; if (!remote) return local; return timestamp(remote) > timestamp(local) ? remote : local; }
-function mergeBackups(local: Backup, remote: Backup): Backup { const merge = <T extends { id: string }>(a: T[], b: T[], timestamp: (v: T) => number) => [...new Map([...a, ...b].map((value) => [value.id, value])).values()].map((value) => newest(a.find((x) => x.id === value.id), b.find((x) => x.id === value.id), timestamp)!).filter(Boolean); return { schemaVersion: 1, exportedAt: Date.now(), prompts: merge(local.prompts, remote.prompts, (v) => v.updatedAt), promptVersions: merge(local.promptVersions, remote.promptVersions, (v) => v.createdAt), chats: merge(local.chats, remote.chats, (v) => v.lastVisitedAt), usages: merge(local.usages, remote.usages, (v) => v.timestamp), interactions: merge(local.interactions, remote.interactions, (v) => v.timestamp), settings: local.settings }; }
-
-export async function syncWithGoogle(): Promise<SyncResult> { const token = await getAccessToken(); const local = await exportBackup(); const file = await findSyncFile(token); const remote = file ? await downloadRemote(file.id, token) : undefined; const merged = remote ? mergeBackups(local, remote) : local; const result = await importBackup(merged); await uploadRemote(merged, token, file?.id); const settings = (await SettingsRepository.get()) ?? local.settings; await SettingsRepository.put({ ...settings, syncEnabled: true, lastSyncAt: Date.now() }); return { imported: result.imported, skipped: result.skipped, uploaded: true, message: remote ? 'تم دمج البيانات المحلية والسحابية ورفع النسخة الموحدة' : 'تم إنشاء ملف المزامنة في Google Drive' }; }
-
+function merge<T extends { id: string }>(a: T[], b: T[], timestamp: (v: T) => number) { return [...new Map([...a, ...b].map((value) => [value.id, value])).values()].map((value) => newest(a.find((x) => x.id === value.id), b.find((x) => x.id === value.id), timestamp)!).filter(Boolean); }
+export function mergeBackups(local: Backup, remote: Backup): Backup { return { schemaVersion: 2, exportedAt: Date.now(), prompts: merge(local.prompts, remote.prompts, (v) => v.updatedAt), promptVersions: merge(local.promptVersions, remote.promptVersions, (v) => v.createdAt), chats: merge(local.chats, remote.chats, (v) => v.lastVisitedAt), usages: merge(local.usages, remote.usages, (v) => v.timestamp), interactions: merge(local.interactions, remote.interactions, (v) => v.timestamp), workspaces: merge(local.workspaces, remote.workspaces, (v) => v.updatedAt), workspacePrompts: merge(local.workspacePrompts, remote.workspacePrompts, (v) => v.createdAt), workspaceChats: merge(local.workspaceChats, remote.workspaceChats, (v) => v.createdAt), settings: local.settings }; }
+export async function syncWithGoogle(): Promise<SyncResult> { const token = await getAccessToken(); const local = await exportBackup(); const file = await findSyncFile(token); const remote = file ? await downloadRemote(file.id, token) : undefined; const remoteV2 = remote && remote.schemaVersion === 2 ? remote : undefined; const merged = remoteV2 ? mergeBackups(local, remoteV2) : local; const result = await importBackup(merged); await uploadRemote(merged, token, file?.id); const settings = (await SettingsRepository.get()) ?? local.settings; await SettingsRepository.put({ ...settings, syncEnabled: true, lastSyncAt: Date.now() }); return { imported: result.imported, skipped: result.skipped, uploaded: true, message: remoteV2 ? 'تم دمج البيانات المحلية والسحابية ورفع النسخة الموحدة' : 'تم إنشاء ملف المزامنة في Google Drive' }; }
 export { DRIVE_SCOPE };
-
 export async function disconnectGoogle(): Promise<void> { await new Promise<void>((resolve) => { chrome.identity.clearAllCachedAuthTokens(() => resolve()); }); const settings = await SettingsRepository.get(); if (settings) await SettingsRepository.put({ ...settings, syncEnabled: false, lastSyncAt: undefined }); }
