@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Prompt Gateway",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Local-first prompt repository, chat registry, composer, and usage ledger.",
   "minimum_chrome_version": "114",
   "permissions": [
