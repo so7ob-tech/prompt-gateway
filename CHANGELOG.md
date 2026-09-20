@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1] - 2026-09-20
+
+### Fixed
+
+- Google Drive API failures now show Google's detailed error reason instead of only `403`.
+- Upload responses are now checked for errors in both create and update flows.
+- Content-script context notifications ignore expected stale-extension messaging errors after a reload.
+
 ## [0.3.0] - 2026-09-20
 
 ### Added
