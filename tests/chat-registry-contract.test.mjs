@@ -22,3 +22,8 @@ test('development-only manifest key is excluded from the store package', () => {
   const manifest = JSON.parse(readFileSync('dist/manifest.json', 'utf8'));
   assert.equal('key' in manifest, false);
 });
+
+test('unused scripting permission is not requested', () => {
+  const manifest = JSON.parse(readFileSync('dist/manifest.json', 'utf8'));
+  assert.ok(!manifest.permissions.includes('scripting'));
+});

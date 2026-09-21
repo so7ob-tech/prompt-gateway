@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.3] - 2026-09-21
+
+### Fixed
+
+- Removed the unused `scripting` permission from the Chrome extension manifest to comply with Chrome Web Store permission requirements.
+
 ## [0.3.2] - 2026-09-20
 
 ### Changed
