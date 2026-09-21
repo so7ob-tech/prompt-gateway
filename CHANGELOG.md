@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.3] - 2026-09-21
+
+### Fixed
+
+- Removed the unused `scripting` permission from the Chrome extension manifest to comply with Chrome Web Store permission requirements.
+
+## [0.3.2] - 2026-09-20
+
+### Changed
+
+- Replaced `<all_urls>` host access with explicit permissions for supported AI websites, including ChatGPT, Claude, Gemini, Copilot, Perplexity, Manus, and other major AI services.
+- Removed the development-only manifest `key` from the Web Store package.
+- Kept the generic composer adapter available on the explicitly declared AI hosts.
+
 ## [0.3.1] - 2026-09-20
 
 ### Fixed
